@@ -13,7 +13,7 @@ namespace UnitTests
         [Test]
         public void Before_first_move_game_result_is_in_progress()
         {
-            Assert.AreEqual(GameResult.InProgress, new Game().Result);
+            Assert.AreEqual(GameResult.InProgress, new Game().CheckResult());
         }
 
         [Test]
@@ -119,7 +119,7 @@ namespace UnitTests
     public class Game
     {
         private int movesCounter;
-        private GameResult result;
+        private readonly GameResult result;
         private readonly BoardFieldState[] board = new BoardFieldState[9];
 
         public Game()
@@ -128,8 +128,6 @@ namespace UnitTests
             result = GameResult.InProgress;
             for (int i = 0; i < 9; i++) board[i] = BoardFieldState.Empty;
         }
-
-        public GameResult Result { get { return result; } }
 
         public BoardFieldState FieldState(int fieldNumber)
         {
