@@ -104,6 +104,11 @@ namespace UnitTests
 
             board[fieldNumber] = movesCounter++ % 2 == 0? BoardFieldState.Cross: BoardFieldState.Nought;
         }
+
+        public void Moves(int[] filedsNumbers)
+        {
+            foreach (int i in filedsNumbers) Move(i);
+        }
     }
 
 
