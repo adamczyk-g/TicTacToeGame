@@ -48,15 +48,7 @@ namespace UnitTests
         public void Even_move_is_cross_odds_move_is_nought()
         {
             Game game = new Game();
-            game.Move(0);
-            game.Move(1);
-            game.Move(2);
-            game.Move(3);
-            game.Move(4);
-            game.Move(5);
-            game.Move(6);
-            game.Move(7);
-            game.Move(8);
+            game.Moves(0,1,2,3,4,5,6,7,8);
 
             Assert.AreEqual(BoardFieldState.Cross, game.FieldState(0));
             Assert.AreEqual(BoardFieldState.Nought, game.FieldState(1));
@@ -105,7 +97,7 @@ namespace UnitTests
             board[fieldNumber] = movesCounter++ % 2 == 0? BoardFieldState.Cross: BoardFieldState.Nought;
         }
 
-        public void Moves(int[] filedsNumbers)
+        public void Moves(params int[] filedsNumbers)
         {
             foreach (int i in filedsNumbers) Move(i);
         }
