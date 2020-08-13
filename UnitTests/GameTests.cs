@@ -48,17 +48,18 @@ namespace UnitTests
         public void Even_move_is_cross_odds_move_is_nought()
         {
             Game game = new Game();
-            game.Moves(0, 1, 2, 3, 4, 5, 6, 7, 8);
+
+            game.Moves(0, 1, 3, 8, 4, 5, 7, 6, 2);
 
             Assert.AreEqual(BoardFieldState.Cross, game.FieldState(0));
             Assert.AreEqual(BoardFieldState.Nought, game.FieldState(1));
-            Assert.AreEqual(BoardFieldState.Cross, game.FieldState(2));
-            Assert.AreEqual(BoardFieldState.Nought, game.FieldState(3));
+            Assert.AreEqual(BoardFieldState.Cross, game.FieldState(3));
+            Assert.AreEqual(BoardFieldState.Nought, game.FieldState(8));
             Assert.AreEqual(BoardFieldState.Cross, game.FieldState(4));
             Assert.AreEqual(BoardFieldState.Nought, game.FieldState(5));
-            Assert.AreEqual(BoardFieldState.Cross, game.FieldState(6));
-            Assert.AreEqual(BoardFieldState.Nought, game.FieldState(7));
-            Assert.AreEqual(BoardFieldState.Cross, game.FieldState(8));
+            Assert.AreEqual(BoardFieldState.Cross, game.FieldState(7));
+            Assert.AreEqual(BoardFieldState.Nought, game.FieldState(6));
+            Assert.AreEqual(BoardFieldState.Cross, game.FieldState(2));
         }
 
         [TestCase(0, 3, 1, 5, 2)]
@@ -137,11 +138,14 @@ namespace UnitTests
 
         public void Move(int fieldNumber)
         {
+            if ( CheckResult() != GameResult.InProgress)
+                throw new InvalidOperationException("No moves allowed when game is over");
+
             if (fieldNumber < 0 || fieldNumber > 8)
                 throw new ArgumentOutOfRangeException("Wrong input: field number must be between 0 and 8");
 
             if (board[fieldNumber] != BoardFieldState.Empty)
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Field is not empty");
 
             board[fieldNumber] = movesCounter++ % 2 == 0 ? BoardFieldState.Cross : BoardFieldState.Nought;
         }
