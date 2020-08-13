@@ -36,6 +36,14 @@ namespace UnitTests
             Assert.Catch<System.ArgumentOutOfRangeException>(() => new Game().Move(9));
         }
 
+        [Test]
+        public void Move_on_not_empty_field_trow_exception()
+        {
+            Game game = new Game();
+            game.Move(0);
+            Assert.Catch<InvalidOperationException>(() => game.Move(0));
+        }
+
     }
 
     public enum GameResult { InProgress};
@@ -65,6 +73,9 @@ namespace UnitTests
         {
             if (fieldNumber < 0 || fieldNumber > 8)
                 throw new ArgumentOutOfRangeException("Wrong input: field number must be between 0 and 8");
+
+            if (board[fieldNumber] != BoardFieldState.Empty)
+                throw new InvalidOperationException();
 
             board[fieldNumber] = movesCounter++ % 2 == 0? BoardFieldState.Cross: BoardFieldState.Nought;
         }
