@@ -44,6 +44,31 @@ namespace UnitTests
             Assert.Catch<InvalidOperationException>(() => game.Move(0));
         }
 
+        [Test]
+        public void Even_move_is_cross_odds_move_is_nought()
+        {
+            Game game = new Game();
+            game.Move(0);
+            game.Move(1);
+            game.Move(2);
+            game.Move(3);
+            game.Move(4);
+            game.Move(5);
+            game.Move(6);
+            game.Move(7);
+            game.Move(8);
+
+            Assert.AreEqual(BoardFieldState.Cross, game.FieldState(0));
+            Assert.AreEqual(BoardFieldState.Nought, game.FieldState(1));
+            Assert.AreEqual(BoardFieldState.Cross, game.FieldState(2));
+            Assert.AreEqual(BoardFieldState.Nought, game.FieldState(3));
+            Assert.AreEqual(BoardFieldState.Cross, game.FieldState(4));
+            Assert.AreEqual(BoardFieldState.Nought, game.FieldState(5));
+            Assert.AreEqual(BoardFieldState.Cross, game.FieldState(6));
+            Assert.AreEqual(BoardFieldState.Nought, game.FieldState(7));
+            Assert.AreEqual(BoardFieldState.Cross, game.FieldState(8));
+        }
+
     }
 
     public enum GameResult { InProgress};
