@@ -102,6 +102,14 @@ namespace UnitTests
 
             Assert.AreEqual(GameResult.Draw, game.CheckResult());
         }
+
+        [Test]
+        public void Move_after_the_game_over_throw_exception()
+        {
+            Game game = new Game();
+            game.Moves(0, 3, 1, 5, 2);
+            Assert.Catch<System.InvalidOperationException>(() => game.Move(8));
+        }
     }
 
     public enum GameResult { InProgress, CrossWin, NoughtWin, Draw };
