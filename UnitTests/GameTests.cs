@@ -92,6 +92,16 @@ namespace UnitTests
 
             Assert.AreEqual(GameResult.NoughtWin, game.CheckResult());
         }
+
+        [TestCase(0, 1, 3, 8, 4, 5, 7, 6, 2)]
+        [TestCase(6, 4, 1, 0, 5, 7, 8, 2, 3)]
+        public void All_these_games_is_draw(int c1, int c2, int c3, int c4, int c5, int c6, int c7, int c8, int c9)
+        {
+            Game game = new Game();
+            game.Moves(c1, c2, c3, c4, c5, c6, c7, c8, c9);
+
+            Assert.AreEqual(GameResult.Draw, game.CheckResult());
+        }
     }
 
     public enum GameResult { InProgress, CrossWin, NoughtWin, Draw };
