@@ -15,32 +15,36 @@ namespace ConsoleGui
             while (game.CheckResult() == GameResult.InProgress)
             {
                 DrawBoard(game);
-                ConsoleKeyInfo keyInfo = new ConsoleKeyInfo();
 
                 int fieldNumber = 0;
 
                 Console.WriteLine("Input field number (form 0 to 8)");
+                ConsoleKeyInfo keyInfo = Console.ReadKey();
                 Console.WriteLine(Environment.NewLine);
 
-                keyInfo = Console.ReadKey();
-
-                while(int.TryParse(keyInfo.KeyChar.ToString(), out fieldNumber) == false)
-                {
+                while (int.TryParse(keyInfo.KeyChar.ToString(), out fieldNumber) == false) {                    
+                    Console.WriteLine("You must write number [0-8]:");
                     keyInfo = Console.ReadKey();
-                    Console.WriteLine("You must write number [0-8]");
                 }
 
                 try
-                {
-                    game.Move(fieldNumber);
-                }
+                { game.Move(fieldNumber); }
                 catch (InvalidOperationException e) {
-                    Console.WriteLine(Environment.NewLine + e.Message + Environment.NewLine);
-                }
+                    Console.WriteLine(Environment.NewLine + e.Message + Environment.NewLine); }
                 catch (ArgumentOutOfRangeException e) {
-                    Console.WriteLine(Environment.NewLine + e.Message + Environment.NewLine);
-                }
+                    Console.WriteLine(Environment.NewLine + e.Message + Environment.NewLine); }
             }
+
+            DrawBoard(game);
+
+            if (game.CheckResult() == GameResult.CrossWin)
+                Console.WriteLine("Game over! Cros win X");
+            if (game.CheckResult() == GameResult.NoughtWin)
+                Console.WriteLine("Game over! Nought win O");
+            if (game.CheckResult() == GameResult.Draw)
+                Console.WriteLine("Game over! Nobody win!");
+
+            Console.ReadKey(true);
         }
 
         static private void DrawBoard(Game game)
@@ -58,8 +62,6 @@ namespace ConsoleGui
             Console.WriteLine("  " + t[6] + " | " + t[7] + " | " + t[8] + "  ");
             Console.WriteLine(Environment.NewLine);
         }
-    }
-
-   
+    }   
 
 }
