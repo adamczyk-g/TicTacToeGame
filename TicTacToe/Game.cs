@@ -11,19 +11,20 @@ namespace TicTacToe
 
     public class Game
     {
-        private int movesCounter;
-        private readonly GameResult result;
+        private int movesCounter;        
         private readonly BoardFieldState[] board = new BoardFieldState[9];
 
         public Game()
         {
-            movesCounter = 0;
-            result = GameResult.InProgress;
+            movesCounter = 0;            
             for (int i = 0; i < 9; i++) board[i] = BoardFieldState.Empty;
         }
 
         public BoardFieldState FieldState(int fieldNumber)
         {
+            if (fieldNumber < 0 || fieldNumber > 8)
+                throw new ArgumentOutOfRangeException("Wrong input: field number must be between 0 and 8");
+
             return board[fieldNumber];
         }
 
@@ -75,19 +76,10 @@ namespace TicTacToe
                 return GameResult.InProgress;
         }
 
-        private bool IsCrossInField(int fieldNumber)
-        {
-            return FieldState(fieldNumber) == BoardFieldState.Cross;
-        }
+        private bool IsCrossInField(int fieldNumber) => FieldState(fieldNumber) == BoardFieldState.Cross;
 
-        private bool IsNoughtInField(int fieldNumber)
-        {
-            return FieldState(fieldNumber) == BoardFieldState.Nought;
-        }
+        private bool IsNoughtInField(int fieldNumber) => FieldState(fieldNumber) == BoardFieldState.Nought;
 
-        private bool IsSameState(int a, int b, int c)
-        {
-            return board[a] == board[b] && board[a] == board[c];
-        }
+        private bool IsSameState(int a, int b, int c) => board[a] == board[b] && board[a] == board[c];
     }
 }

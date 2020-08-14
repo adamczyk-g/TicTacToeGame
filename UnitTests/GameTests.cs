@@ -108,5 +108,17 @@ namespace UnitTests
             game.Moves(0, 3, 1, 5, 2);
             Assert.Catch<System.InvalidOperationException>(() => game.Move(8));
         }
+
+        [Test]
+        public void Field_State_with_field_number_below_zero_trow_exception()
+        {
+            Assert.Catch<System.ArgumentOutOfRangeException>(() => new Game().FieldState(-1));
+        }
+
+        [Test]
+        public void Field_state_field_number_over_eight_trow_exception()
+        {
+            Assert.Catch<System.ArgumentOutOfRangeException>(() => new Game().FieldState(9));
+        }
     }    
 }
