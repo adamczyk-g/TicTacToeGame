@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTests
+namespace TicTacToe
 {
     public enum GameResult { InProgress, CrossWin, NoughtWin, Draw };
     public enum BoardFieldState { Empty, Cross, Nought };
