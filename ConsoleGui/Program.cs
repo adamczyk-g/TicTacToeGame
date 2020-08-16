@@ -12,7 +12,7 @@ namespace ConsoleGui
         static void Main(string[] args)
         {
             Game game = new Game();
-            while (game.CheckResult() == GameResult.InProgress)
+            while (game.IsNotOver)
             {
                 DrawBoard(game);
 

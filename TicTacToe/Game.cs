@@ -76,6 +76,8 @@ namespace TicTacToe
                 return GameResult.InProgress;
         }
 
+        public bool IsNotOver => CheckResult() == GameResult.InProgress;
+
         private bool IsCrossInField(int fieldNumber) => FieldState(fieldNumber) == BoardFieldState.Cross;
 
         private bool IsNoughtInField(int fieldNumber) => FieldState(fieldNumber) == BoardFieldState.Nought;
