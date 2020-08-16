@@ -22,7 +22,7 @@ namespace ConsoleGui
                 ConsoleKeyInfo keyInfo = Console.ReadKey();
                 Console.WriteLine(Environment.NewLine);
 
-                while (KeyIsNotValidInteger(keyInfo,out fieldNumber)) {                    
+                while (KeyIsNotValidInteger(keyInfo, out fieldNumber)) {                    
                     Console.WriteLine("You must write number [0-8]:");
                     keyInfo = Console.ReadKey();
                 }
