@@ -22,7 +22,7 @@ namespace ConsoleGui
                 ConsoleKeyInfo keyInfo = Console.ReadKey();
                 Console.WriteLine(Environment.NewLine);
 
-                while (int.TryParse(keyInfo.KeyChar.ToString(), out fieldNumber) == false) {                    
+                while (KeyIsNotValidInteger(keyInfo,out fieldNumber)) {                    
                     Console.WriteLine("You must write number [0-8]:");
                     keyInfo = Console.ReadKey();
                 }
@@ -45,6 +45,11 @@ namespace ConsoleGui
                 Console.WriteLine("Game over! Nobody win!");
 
             Console.ReadKey(true);
+        }
+
+        static private bool KeyIsNotValidInteger(ConsoleKeyInfo keyInfo, out int integer)
+        {
+            return !int.TryParse(keyInfo.KeyChar.ToString(), out integer);
         }
 
         static private void DrawBoard(Game game)
