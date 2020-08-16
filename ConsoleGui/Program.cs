@@ -12,27 +12,34 @@ namespace ConsoleGui
         static void Main(string[] args)
         {
             Game game = new Game();
+
+            DrawBoard(game);
+
             while (game.IsNotOver)
             {
-                DrawBoard(game);
-
                 int fieldNumber = 0;
 
                 Console.WriteLine("Input field number (form 0 to 8)");
                 ConsoleKeyInfo keyInfo = Console.ReadKey();
                 Console.WriteLine(Environment.NewLine);
 
-                while (KeyIsNotValidInteger(keyInfo, out fieldNumber)) {                    
+                while (KeyIsNotValidInteger(keyInfo, out fieldNumber)) {
+                    Console.WriteLine(Environment.NewLine);
                     Console.WriteLine("You must write number [0-8]:");
                     keyInfo = Console.ReadKey();
                 }
 
                 try
-                { game.Move(fieldNumber); }
+                {
+                    game.Move(fieldNumber);
+                    DrawBoard(game);
+                }
                 catch (InvalidOperationException e) {
-                    Console.WriteLine(Environment.NewLine + e.Message + Environment.NewLine); }
-                catch (ArgumentOutOfRangeException e) {
-                    Console.WriteLine(Environment.NewLine + e.Message + Environment.NewLine); }
+                    Console.WriteLine(Environment.NewLine + e.Message + Environment.NewLine);
+                }
+                catch (ArgumentOutOfRangeException e)  {
+                    Console.WriteLine(Environment.NewLine + e.Message + Environment.NewLine);
+                }                
             }
 
             DrawBoard(game);
@@ -60,8 +67,9 @@ namespace ConsoleGui
             {
                 BoardFieldState status = game.FieldState(i);
                 if (status == BoardFieldState.Cross) t[i] = 'X';
-                if (status == BoardFieldState.Nought) t[i] = 'O';
+                if (status == BoardFieldState.Nought) t[i] = 'O';                
             }
+            Console.WriteLine(Environment.NewLine);
             Console.WriteLine(" _" + t[0] + "_|_" + t[1] + "_|_" + t[2] + "_ ");
             Console.WriteLine(" _" + t[3] + "_|_" + t[4] + "_|_" + t[5] + "_ ");
             Console.WriteLine("  " + t[6] + " | " + t[7] + " | " + t[8] + "  ");
