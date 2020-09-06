@@ -8,13 +8,13 @@ namespace UnitTests
     public class GameTests
     {
         [Test]
-        public void Before_first_move_game_result_is_in_progress()
+        public void Before_the_first_move_the_game_returns_InProgress_state()
         {
             Assert.AreEqual(GameResult.InProgress, new Game().CheckResult());
         }
 
         [Test]
-        public void After_the_first_move_the_selected_field_contains_a_cross()
+        public void After_the_first_move_the_field_where_the_move_was_made_contains_a_cross()
         {
             Game game = new Game();
             game.Move(0);
@@ -22,27 +22,16 @@ namespace UnitTests
         }
 
         [Test]
-        public void Move_with_field_number_below_zero_trow_exception()
-        {
-            Assert.Catch<System.ArgumentOutOfRangeException>(() => new Game().Move(-1));
-        }
-
-        [Test]
-        public void Move_with_field_number_over_eight_trow_exception()
-        {
-            Assert.Catch<System.ArgumentOutOfRangeException>(() => new Game().Move(9));
-        }
-
-        [Test]
-        public void Move_on_not_empty_field_trow_exception()
+        public void After_the_second_move_the_field_where_the_move_was_made_contains_a_circle()
         {
             Game game = new Game();
             game.Move(0);
-            Assert.Catch<InvalidOperationException>(() => game.Move(0));
+            game.Move(1);
+            Assert.AreEqual(BoardFieldState.Nought, game.FieldState(1));
         }
 
         [Test]
-        public void Even_move_is_cross_odds_move_is_nought()
+        public void Perform_an_even_move_places_a_cross_in_the_field_perform_an_odd_move_places_a_circle_in_the_field()
         {
             Game game = new Game();
 
@@ -58,6 +47,26 @@ namespace UnitTests
             Assert.AreEqual(BoardFieldState.Nought, game.FieldState(6));
             Assert.AreEqual(BoardFieldState.Cross, game.FieldState(2));
         }
+
+        [Test]
+        public void Move_to_a_field_with_a_number_below_zero_raises_an_exception()
+        {
+            Assert.Catch<System.ArgumentOutOfRangeException>(() => new Game().Move(-1));
+        }
+
+        [Test]
+        public void Move_to_a_field_with_a_number_greater_than_eight_raises_an_exception()
+        {
+            Assert.Catch<System.ArgumentOutOfRangeException>(() => new Game().Move(9));
+        }
+
+        [Test]
+        public void Move_to_a_non_empty_field_raises_an_exception()
+        {
+            Game game = new Game();
+            game.Move(0);
+            Assert.Catch<InvalidOperationException>(() => game.Move(0));
+        }        
 
         [TestCase(0, 3, 1, 5, 2)]
         [TestCase(3, 8, 4, 1, 5)]
@@ -102,23 +111,23 @@ namespace UnitTests
         }
 
         [Test]
-        public void Move_after_the_game_over_throw_exception()
-        {
-            Game game = new Game();
-            game.Moves(0, 3, 1, 5, 2);
-            Assert.Catch<System.InvalidOperationException>(() => game.Move(8));
-        }
-
-        [Test]
-        public void Field_State_with_field_number_below_zero_trow_exception()
+        public void Read_the_state_of_a_field_with_a_number_below_zero_raises_an_exception()
         {
             Assert.Catch<System.ArgumentOutOfRangeException>(() => new Game().FieldState(-1));
         }
 
         [Test]
-        public void Field_state_field_number_over_eight_trow_exception()
+        public void Read_the_state_of_a_field_with_a_number_above_eight_raises_an_exception()
         {
             Assert.Catch<System.ArgumentOutOfRangeException>(() => new Game().FieldState(9));
+        }
+
+        [Test]
+        public void Make_a_move_when_the_game_is_over_raises_an_exception()
+        {
+            Game game = new Game();
+            game.Moves(0, 3, 1, 5, 2);
+            Assert.Catch<System.InvalidOperationException>(() => game.Move(8));
         }
     }    
 }
