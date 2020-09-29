@@ -1,5 +1,5 @@
 # TDD example with Tic Tac Toe game
-A simple tic tac toe app, creating with tdd aproach. Domian work with console gui.
+A simple tic tac toe app, creating with tdd aproach. Domain work with console gui.
 
 ## Assumptions
 - the game is played on a board with nine fields
